@@ -338,7 +338,7 @@ def create_param(spec, shape, name=None):
 
 
 def unroll_scan(fn, sequences, outputs_info, non_sequences, n_steps,
-                go_backwards=False):
+                go_backwards=False, strict=False):
         """
         Helper function to unroll for loops. Can be used to unroll theano.scan.
         The parameter names are identical to theano.scan, please refer to here
@@ -370,6 +370,8 @@ def unroll_scan(fn, sequences, outputs_info, non_sequences, n_steps,
         go_backwards: bool
             If true the recursion starts at sequences[-1] and iterates
             backwards.
+
+        strict: ignored
 
         Returns
         -------
@@ -408,4 +410,4 @@ def unroll_scan(fn, sequences, outputs_info, non_sequences, n_steps,
             l = map(lambda x: x[i], output)
             output_scan.append(T.stack(*l))
 
-        return output_scan
+        return output_scan, {}
