@@ -112,7 +112,7 @@ def test_create_param_numpy_bad_shape_raises_error():
     from lasagne.utils import create_param
 
     param = np.array([[1, 2, 3], [4, 5, 6]])
-    with pytest.raises(RuntimeError):
+    with pytest.raises(ValueError):
         create_param(param, (3, 2))
 
 
@@ -138,7 +138,7 @@ def test_create_param_shared_bad_ndim_raises_error():
     from lasagne.utils import create_param
 
     param = theano.shared(np.array([[1, 2, 3], [4, 5, 6]]))
-    with pytest.raises(RuntimeError):
+    with pytest.raises(ValueError):
         create_param(param, (2, 3, 4))
 
 

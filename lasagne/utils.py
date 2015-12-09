@@ -307,14 +307,14 @@ def create_param(spec, shape, name=None):
         # `name` attribute of the variable, but the user may have already
         # named the variable and we don't want to override this.
         if spec.ndim != len(shape):
-            raise RuntimeError("parameter variable has %d dimensions, "
-                               "should be %d" % (spec.ndim, len(shape)))
+            raise ValueError("parameter variable has %d dimensions, "
+                             "should be %d" % (spec.ndim, len(shape)))
         return spec
 
     elif isinstance(spec, np.ndarray):
         if spec.shape != shape:
-            raise RuntimeError("parameter array has shape %s, should be "
-                               "%s" % (spec.shape, shape))
+            raise ValueError("parameter array has shape %s, should be "
+                             "%s" % (spec.shape, shape))
         return theano.shared(spec, name=name)
 
     elif hasattr(spec, '__call__'):
