@@ -931,3 +931,18 @@ def test_CustomRecurrentLayer_child_kwargs():
     args, kwargs = hid_to_hid.get_output_for.call_args
     assert len(args) == 1
     assert kwargs == {'foo': 'bar'}
+
+
+def test_init_shapes():
+    in_shp = (2, 3, 5)
+    l_inp = lasagne.layers.InputLayer(in_shp)
+
+    l_lstm = lasagne.layers.LSTMLayer(l_inp, 7, learn_init=True)
+    hid_init = l_lstm.hid_init.eval()
+    cell_init = l_lstm.cell_init.eval()
+    assert hid_init.shape == (1, 7)
+    assert cell_init.shape == (1, 7)
+
+    l_gru = lasagne.layers.GRULayer(l_inp, 7, learn_init=True)
+    hid_init = l_gru.hid_init.eval()
+    assert hid_init.shape == (1, 7)
